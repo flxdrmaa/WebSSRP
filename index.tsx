@@ -2,6 +2,8 @@ import React, { Component, ReactNode } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
 
+console.log("SSRP Studio: Initializing...");
+
 // Error Boundary to catch crashes
 class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean, error: Error | null }> {
   constructor(props: { children: ReactNode }) {
@@ -14,7 +16,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+    console.error("SSRP Studio Runtime Error:", error, errorInfo);
   }
 
   render() {
@@ -36,14 +38,20 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boole
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
+  console.error("SSRP Studio: Root element not found!");
   throw new Error("Could not find root element to mount to");
 }
 
-const root = ReactDOM.createRoot(rootElement);
-root.render(
-  <React.StrictMode>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
-  </React.StrictMode>
-);
+try {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </React.StrictMode>
+  );
+  console.log("SSRP Studio: Mount called.");
+} catch (err) {
+  console.error("SSRP Studio: Failed to mount.", err);
+}
