@@ -19,6 +19,15 @@
         color: #e4e4e7;
         overflow: hidden; 
       }
+      /* Loading State */
+      #loading-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #52525b;
+        font-family: monospace;
+      }
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -48,9 +57,20 @@
   }
 }
 </script>
+<script>
+  // Global Error Handler to catch loading issues
+  window.addEventListener('error', function(e) {
+    const root = document.getElementById('root');
+    if (root && root.innerHTML.includes('Loading')) {
+      root.innerHTML = '<div style="color:#ef4444; padding:20px; font-family:monospace;"><h3>Startup Error</h3><pre>' + e.message + '</pre></div>';
+    }
+  });
+</script>
 </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+        <div id="loading-text">Loading SSRP Studio...</div>
+    </div>
     <script type="module" src="./index.tsx"></script>
   </body>
 </html>
