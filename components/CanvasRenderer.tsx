@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { Layer, LayerType, TextLayer, ImageLayer } from '../types';
+import { Layer, LayerType, TextLayer, ImageLayer } from '../types.ts';
 
 interface CanvasRendererProps {
   width: number;

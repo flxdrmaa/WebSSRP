@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Layer, LayerType } from '../types';
+import { Layer, LayerType } from '../types.ts';
 import { GripVertical, Type, Image as ImageIcon, ArrowUp, ArrowDown, Trash2 } from 'lucide-react';
-import { parseChatlog } from '../utils';
+import { parseChatlog } from '../utils.ts';
 
 interface LayerManagerProps {
   layers: Layer[];

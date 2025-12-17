@@ -57,12 +57,14 @@
   }
 }
 </script>
+<!-- Babel Standalone to compile TSX in browser -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script>
   // Global Error Handler to catch loading issues
   window.addEventListener('error', function(e) {
     const root = document.getElementById('root');
     if (root && root.innerHTML.includes('Loading')) {
-      root.innerHTML = '<div style="color:#ef4444; padding:20px; font-family:monospace;"><h3>Startup Error</h3><pre>' + e.message + '</pre></div>';
+      root.innerHTML = '<div style="color:#ef4444; padding:20px; font-family:monospace;"><h3>Startup Error</h3><pre>' + e.message + '</pre><p>Check console for MIME type errors or import failures.</p></div>';
     }
   });
 </script>
@@ -71,6 +73,7 @@
     <div id="root">
         <div id="loading-text">Loading SSRP Studio...</div>
     </div>
-    <script type="module" src="./index.tsx"></script>
+    <!-- Use text/babel type to trigger in-browser compilation -->
+    <script type="text/babel" data-presets="react,typescript" data-type="module" src="./index.tsx"></script>
   </body>
 </html>

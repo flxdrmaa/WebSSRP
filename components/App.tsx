@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Layer, LayerType, TextLayer, ImageLayer } from '../types';
-import { generateId, downloadCanvas } from '../utils';
-import Toolbar from './Toolbar';
-import LayerManager from './LayerManager';
-import CanvasRenderer from './CanvasRenderer';
-import PropertiesPanel from './PropertiesPanel';
+import { Layer, LayerType, TextLayer, ImageLayer } from '../types.ts';
+import { generateId, downloadCanvas } from '../utils.ts';
+import Toolbar from './Toolbar.tsx';
+import LayerManager from './LayerManager.tsx';
+import CanvasRenderer from './CanvasRenderer.tsx';
+import PropertiesPanel from './PropertiesPanel.tsx';
 
 const App: React.FC = () => {
   const [layers, setLayers] = useState<Layer[]>([]);

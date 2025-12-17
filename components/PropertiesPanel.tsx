@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layer, LayerType, TextLayer, ImageLayer, PRESET_COLORS } from '../types';
+import { Layer, LayerType, TextLayer, ImageLayer, PRESET_COLORS } from '../types.ts';
 import { Trash2, Copy, Move, Type, Image as ImageIcon, Eye, EyeOff, Lock, Unlock } from 'lucide-react';
 
 interface PropertiesPanelProps {
