@@ -5,66 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SSRP Master Studio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-      html, body, #root {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        font-family: 'Inter', sans-serif;
-        background-color: #09090b;
-        color: #e4e4e7;
-        overflow: hidden; 
-      }
-      /* Loading State */
-      #loading-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #52525b;
-        font-family: monospace;
-      }
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #18181b; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #3f3f46; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #52525b; 
-      }
-    </style>
-  <script type="importmap">
+    
+    <!-- Import Map: Strictly React 18 -->
+    <script type="importmap">
 {
   "imports": {
-    "lucide-react": "https://esm.sh/lucide-react@0.292.0?deps=react@18.3.1",
     "react": "https://esm.sh/react@18.3.1",
-    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?deps=react@18.3.1",
-    "react-dom": "https://esm.sh/react-dom@18.3.1?deps=react@18.3.1",
-    "react/jsx-runtime": "https://esm.sh/react@18.3.1/jsx-runtime",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "lucide-react": "https://esm.sh/lucide-react@0.292.0?deps=react@18.3.1",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
     "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
-<!-- Babel Standalone to compile TSX in browser -->
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-</head>
+    
+    <!-- Babel for in-browser compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+      html, body, #root { height: 100%; width: 100%; margin: 0; padding: 0; }
+      body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #e4e4e7; overflow: hidden; }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: #18181b; }
+      ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
+      ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+    </style>
+  </head>
   <body>
-    <div id="root">
-        <div id="loading-text">Loading SSRP Studio...</div>
+    <div id="root" class="flex items-center justify-center h-full flex-col">
+        <div class="animate-pulse text-indigo-500 font-mono text-xl mb-2">Initializing SSRP Studio...</div>
+        <div class="text-zinc-600 text-sm">Loading modules</div>
     </div>
-    <!-- Load the main bundled file -->
+
+    <!-- Error Handler if React fails to mount -->
+    <script>
+      window.addEventListener('error', (e) => {
+        const root = document.getElementById('root');
+        if (root && root.innerText.includes('Initializing')) {
+           root.innerHTML = `
+             <div class="p-8 max-w-2xl bg-zinc-900 border border-red-900 rounded-lg text-red-200 font-mono">
+               <h2 class="text-xl font-bold mb-4 text-red-500">Startup Error</h2>
+               <p class="mb-2">The application failed to start correctly.</p>
+               <div class="bg-black p-4 rounded overflow-auto text-xs opacity-70 mb-4">
+                 ${e.message} <br/> at ${e.filename}:${e.lineno}
+               </div>
+               <p class="text-zinc-500 text-sm">Try refreshing the page (Ctrl+F5) to clear cache.</p>
+             </div>
+           `;
+        }
+      });
+    </script>
+
+    <!-- Main Application Logic -->
     <script type="text/babel" data-presets="react,typescript" src="./index.tsx"></script>
   </body>
 </html>
